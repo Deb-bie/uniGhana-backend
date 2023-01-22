@@ -3,12 +3,6 @@ const jwt = require("jsonwebtoken")
 
 const User = require("../models/User.js")
 
-// create error handling system
-// connect to db
-// jwt key in env
-
-
-
 const register = async (req, res, next) => {
     try {
         const {username, email, password, confirmPassword} = req.body;
@@ -86,9 +80,20 @@ const login = async (req, res, next) => {
 
 }
 
+const logout = async (req, res) => {
+    try {
+        res.cookie(
+            "access_token", "", {expiresIn: "1"}
+        ).status(200).json("You have been sucessfully logged out")
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 
 module.exports = {
     register,
-    login
+    login,
+    logout
 }
